@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CRUD_Basico.Classes
 {
-    internal class AcessoDados
+    public class AcessoDados
     {
         private string StringDeConexao
         {
