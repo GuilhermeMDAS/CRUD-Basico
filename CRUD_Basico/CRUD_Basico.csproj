@@ -83,6 +83,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Procedures\SP_AtualizaAluno.sql" />
+    <Content Include="Procedures\SP_ExcluirAluno.sql" />
     <Content Include="Procedures\SP_InsereAluno.sql" />
     <Content Include="Procedures\SP_ObterAluno.sql" />
   </ItemGroup>

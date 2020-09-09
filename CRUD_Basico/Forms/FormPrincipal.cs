@@ -38,6 +38,9 @@ namespace CRUD_Basico
         private void CarregaDgvAluno()
         {
             DgvAlunos.Rows.Clear();
+
+            _alunos = _alunos.OrderBy(a => a.Nome).ToList();
+
             foreach (Aluno aluno in _alunos)
             {
                 DgvAlunos.Rows.Add(aluno.Id, aluno.Nome, aluno.DtNascimento.ToString("dd/MM/yyyy"));
@@ -46,10 +49,6 @@ namespace CRUD_Basico
 
         }
 
-        private void BtnCadastrar_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
@@ -160,6 +159,9 @@ namespace CRUD_Basico
                     Aluno novoAluno = new Aluno(TxbNome.Text, DtpDtNascimento.Value, CkbAtivo.Checked);
 
                     novoAluno.Cadastrar();
+                    _alunos.Add(novoAluno);
+                    CarregaDgvAluno();
+                    ConfiguraBotoesECampos(1);
                     MessageBox.Show($"Aluno Cadastrado com sucesso: \n {novoAluno.Nome}\nId inserido pelo banco: {novoAluno.Id}");
                 }
                 catch (Exception ex)
@@ -170,10 +172,48 @@ namespace CRUD_Basico
             }
             else
             {
+                _alunos.Remove(_alunoSelecionado);
+
                 //Alterar um aluno existente
+                _alunoSelecionado.Nome = TxbNome.Text;
+                _alunoSelecionado.DtNascimento = DtpDtNascimento.Value;
+                _alunoSelecionado.Ativo = CkbAtivo.Checked;
+
+                try
+                {
+                    string retornoBD = _alunoSelecionado.Atualizar();
+                    _alunos.Add(_alunoSelecionado);
+                    CarregaDgvAluno();
+                    ConfiguraBotoesECampos(1);
+                    MessageBox.Show(retornoBD);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
 
 
+        }
+
+        private void TsbExcluir_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+
+                string retornoBD = _alunoSelecionado.Excluir();
+                _alunos.Remove(_alunoSelecionado);
+                CarregaDgvAluno();
+                ConfiguraBotoesECampos(1);
+                MessageBox.Show(retornoBD);
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
