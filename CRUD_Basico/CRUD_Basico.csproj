@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Screenshot_1.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -87,6 +90,7 @@
     <Content Include="Procedures\SP_ExcluirAluno.sql" />
     <Content Include="Procedures\SP_InsereAluno.sql" />
     <Content Include="Procedures\SP_ObterAluno.sql" />
+    <Content Include="Screenshot_1.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
